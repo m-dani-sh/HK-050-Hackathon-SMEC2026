@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceMatch - Find the Best Deals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">PriceMatch</h1>
+            <p class="tagline">Compare prices. Save money. Find the best deals.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input"
+                    placeholder="Search for any product..."
+                    autocomplete="off"
+                >
+                <button class="search-btn" id="searchBtn">Search</button>
+            </div>
+            <div id="loadingSpinner" class="loading-spinner hidden"></div>
+        </div>
+
+        <div id="errorMessage" class="error-message hidden"></div>
+
+        <div id="resultsContainer" class="results-container hidden">
+            <div class="product-info">
+                <h2 id="productName"></h2>
+                <p id="productDesc" class="product-description"></p>
+            </div>
+
+            <div class="prices-grid">
+                <div id="pricesContent" class="prices-content"></div>
+            </div>
+
+            <div class="best-deal">
+                <div class="best-deal-content">
+                    <span class="best-deal-label">BEST DEAL</span>
+                    <p id="bestDealText" class="best-deal-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <path d="M9 9h.01M15 9h.01"></path>
+            </svg>
+            <h3>Start Comparing Prices</h3>
+            <p>Search for any product to compare prices across popular e-commerce platforms</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Helping you find the best prices online • © 2025 PriceMatch</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
