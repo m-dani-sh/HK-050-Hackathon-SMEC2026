@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Resource Management</title>
+    <link rel="stylesheet" href="task9.css" />
+  </head>
+  <body>
+    <header>
+      <h2>Campus Resource Management System</h2>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <h3>Book a Resource</h3>
+
+        <label>Resource</label>
+        <select id="resource">
+          <option>Computer Lab</option>
+          <option>Lecture Hall</option>
+          <option>Projector</option>
+        </select>
+
+        <label>Time Slot</label>
+        <select id="slot">
+          <option>9:00 - 10:00</option>
+          <option>10:00 - 11:00</option>
+          <option>11:00 - 12:00</option>
+        </select>
+
+        <button onclick="bookSlot()">Book Slot</button>
+      </div>
+
+      <div class="card">
+        <h3>Admin Dashboard</h3>
+
+        <div class="adding_div">
+          <h4>Resource</h4>
+          <input type="text" id="newResource" placeholder="Resource Name" />
+          <h4>Time Slot</h4>
+          <input
+            type="text"
+            id="newSlot"
+            placeholder="Time Slot (e.g., 1:00 - 2:00)"
+          />
+          <br />
+          <button onclick="addSlot()">Add Resource & Slot</button>
+        </div>
+
+        <h4>Booking Requests</h4>
+        <ul id="requests"></ul>
+      </div>
+    </div>
+
+    <footer>2026 Campus Management System</footer>
+
+    <script src="task9.js"></script>
+  </body>
+</html>

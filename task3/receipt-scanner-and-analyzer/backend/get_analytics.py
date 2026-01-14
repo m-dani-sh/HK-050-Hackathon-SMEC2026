@@ -8,13 +8,8 @@ from data_processor import calculate_spending_analytics
 from receipt_ocr import process_uploaded_image
 
 def main():
-    # Parse receipts from dataset and uploads
+    # Only process uploaded receipts, not dataset
     receipts = []
-    
-    # Parse from dataset if available
-    dataset_path = '../dataset'
-    if os.path.exists(dataset_path):
-        receipts.extend(parse_receipts_from_dataset(dataset_path))
     
     # Process uploaded receipts
     uploads_path = '../uploads'
@@ -28,6 +23,17 @@ def main():
                         receipts.append(receipt)
                 except Exception as e:
                     print(f"Error processing uploaded image {file}: {e}")
+    
+    # If no uploaded receipts, show empty result
+    if not receipts:
+        print("No uploaded receipts found. Please upload receipt images first.")
+        print("Spending by Store:")
+        print("No data available")
+        print("\nMost Frequent Stores:")
+        print("No data available")
+        print("\nAverage Transaction Value:")
+        print("No data available")
+        return
     
     # Calculate analytics
     analytics = calculate_spending_analytics(receipts)

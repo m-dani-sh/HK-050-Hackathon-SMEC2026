@@ -9,13 +9,10 @@ from alerts import generate_alerts
 from receipt_ocr import process_uploaded_image
 
 def main():
-    # Parse receipts from dataset
+    # Only process uploaded receipts, not dataset
     receipts = []
-    dataset_path = '../dataset'
-    if os.path.exists(dataset_path):
-        receipts.extend(parse_receipts_from_dataset(dataset_path))
     
-    # Also process uploaded receipts
+    # Process uploaded receipts
     uploads_path = '../uploads'
     if os.path.exists(uploads_path):
         for file in os.listdir(uploads_path):
@@ -27,6 +24,11 @@ def main():
                         receipts.append(receipt)
                 except Exception as e:
                     print(f"Error processing uploaded image {file}: {e}")
+    
+    # If no uploaded receipts, show empty result
+    if not receipts:
+        print("No uploaded receipts found. Please upload receipt images first.")
+        return
     
     # Calculate monthly summary
     monthly_summary = calculate_monthly_summary(receipts)

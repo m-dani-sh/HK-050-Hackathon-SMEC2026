@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+}
+
+header {
+  background: #1f2933;
+  color: white;
+  padding: 15px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  width: 50%;
+  border-radius: 8px;
+}
+
+.adding_div h4 {
+  padding: 10px 0;
+}
+
+.adding_div input {
+  padding: 3px 5px;
+  width: 100%;
+}
+
+.adding_div button {
+  margin: 10px 0;
+  width: auto;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+select,
+button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+ul li {
+  margin-top: 8px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #1f2933;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+@media (max-width: 600px) {
+  .container {
+    display: block !important;
+  }
+  .card {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

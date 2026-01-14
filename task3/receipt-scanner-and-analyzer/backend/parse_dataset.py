@@ -6,18 +6,29 @@ from data_models import Receipt, ReceiptItem
 
 def parse_key_information(file_path):
     try:
+        # Skip non-JSON files (like vocab.txt)
+        if not file_path.endswith('.txt') or file_path.endswith('vocab.txt'):
+            return {}
+            
         # Use 'utf-8-sig' to handle BOM and 'replace' to handle encoding errors
         with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
             content = f.read()
             if not content:
                 print(f"Warning: Empty key information file skipped: {file_path}")
                 return {}
-            data = json.loads(content)
+            
+            # Try to parse as JSON, if fails return empty dict
+            try:
+                data = json.loads(content)
+            except json.JSONDecodeError:
+                return {}
         return data
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON from file: {file_path}")
-        print(f"Error: {e}")
+    except Exception as e:
         return {}
+
+def parse_receipts_from_dataset(dataset_path):
+    """Parse receipts from SROIE dataset - alias for process_dataset"""
+    return process_dataset(dataset_path)
 
 def process_dataset(dataset_path):
     receipts = []
@@ -40,8 +51,20 @@ def process_dataset(dataset_path):
                 raw_date = key_info.get('date')
                 receipt_date = None
                 if raw_date:
+                    # Clean the date string first
+                    raw_date = raw_date.strip('()')
+                    
                     # Attempt to parse multiple date formats
-                    date_formats = ['%d/%m/%Y', '%d-%m-%y', '%d.%m.%y', '%d %b %y', '%d %b %Y']
+                    date_formats = [
+                        '%d/%m/%Y', '%d-%m-%Y', '%d/%m/%y', '%d-%m-%y',
+                        '%d.%m.%Y', '%d.%m.%y', '%d %b %Y', '%d %b %y',
+                        '%d %B %Y', '%d %B %y', '%m/%d/%Y', '%m-%d-%Y',
+                        '%Y/%m/%d', '%Y-%m-%d', '%d/%b/%Y', '%d-%b-%Y',
+                        '%d-%b-%y', '%d/%b/%y', '%d-%B-%Y', '%d/%B-%Y',
+                        '%d-%B-%y', '%d/%B-%y', '%d%b%Y', '%d%b%y',
+                        '%d%B%Y', '%d%B%y', '%Y%m%d', '%d%m%Y', '%d%m%y',
+                        '%b %d, %Y', '%B %d, %Y'
+                    ]
                     for fmt in date_formats:
                         try:
                             receipt_date = datetime.strptime(raw_date, fmt)

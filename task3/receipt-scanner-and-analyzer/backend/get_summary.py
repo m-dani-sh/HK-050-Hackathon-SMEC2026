@@ -8,13 +8,8 @@ from data_processor import calculate_monthly_summary
 from receipt_ocr import process_uploaded_image
 
 def main():
-    # Parse receipts from both dataset and uploads
+    # Only process uploaded receipts, not dataset
     receipts = []
-    
-    # Parse from dataset if available
-    dataset_path = '../dataset'
-    if os.path.exists(dataset_path):
-        receipts.extend(parse_receipts_from_dataset(dataset_path))
     
     # Process uploaded receipts
     uploads_path = '../uploads'
@@ -28,6 +23,13 @@ def main():
                         receipts.append(receipt)
                 except Exception as e:
                     print(f"Error processing uploaded image {file}: {e}")
+    
+    # If no uploaded receipts, show empty result
+    if not receipts:
+        print("No uploaded receipts found. Please upload receipt images first.")
+        print("Monthly Summary:")
+        print("No data available")
+        return
     
     # Calculate and print monthly summary
     monthly_summary = calculate_monthly_summary(receipts)
